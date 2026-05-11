@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+PyJWT[crypto]
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+ultralytics
+onnxruntime
+groq
+python-multipart
+python-dotenv
+requests
+gradio
+pillow
+numpy

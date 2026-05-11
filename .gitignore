@@ -1,0 +1,14 @@
+.env
+
+test.db
+sql_app.db
+
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+imagenes_subidas/
+
+*.png
