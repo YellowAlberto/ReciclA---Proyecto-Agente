@@ -70,7 +70,8 @@ def login_usuario(username, password):
             token = res.json().get("access_token")
             user_txt = f" **Usuario:** {username}"
             return token, f" Hola {username}", gr.Tabs(selected=2), user_txt, user_txt, user_txt, user_txt, gr.update(visible=False), gr.update(visible=True), " Preparado para analizar imágenes"
-        return None, " Error", gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update()
+        error_msg = res.json().get('detail', 'Error al iniciar sesión')
+        return None, f"⚠️ {error_msg}", gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update()
     except Exception as e:
         return None, f" Error: {str(e)}", gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update()
 
@@ -91,7 +92,8 @@ def analizar_foto(token, imagen):
             msg_formateado = re.sub(r' +', ' ', msg_formateado).strip()
             img_res = Image.open(io.BytesIO(res.content))
             return f"## {robot_html} ReciclA Dice:\n\n{msg_formateado}\n\n**Objeto:** {det}", img_res, gr.update()
-        return f" Error: {res.text}", None, gr.update()
+        error_msg = res.json().get('detail', 'Error al analizar la imagen')
+        return f"### ⚠️ Aviso\n{error_msg}", None, gr.update()
     except Exception as e: return f" Error: {str(e)}", None, gr.update()
 
 def ver_historial(token):

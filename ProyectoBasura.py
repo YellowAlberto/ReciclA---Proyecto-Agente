@@ -118,7 +118,7 @@ def verificar_frecuencia(usuario_actual: str, segundos: int = 5):
             segundos_restantes = segundos - int(tiempo_transcurrido.total_seconds())
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                detail=f"Demasiado rápido. Espera {segundos_restantes}s."
+                detail=f"Por favor, espera {segundos_restantes} segundos antes de volver a intentarlo"
             )
     registros_mensajes[usuario_actual] = ahora
 
@@ -181,7 +181,7 @@ async def registrar_usuario(form_data: OAuth2PasswordRequestForm = Depends(), db
     nuevo_usuario = modelsProyecto.Usuario(
         username=form_data.username,
         password_hash=password_con_hash,
-        es_admin=True
+        es_admin=False
     )
     db.add(nuevo_usuario)
     db.commit()
